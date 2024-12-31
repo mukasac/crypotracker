@@ -6,7 +6,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Bitcoin, Cpu, TrendingUp, Shield, Clock, Zap, ChevronUp, AlertTriangle, DollarSign } from 'lucide-react'
 import { InvestmentSimulator } from '@/components/InvestmentSimulator'
-import { EnhancedTradingChart } from '@/components/EnhancedTradingChart'
+import EnhancedTradingChart from '@/components/EnhancedTradingChart'
 import { Waitlist } from "@clerk/nextjs"
 import { AppIntegrations } from '@/components/AppIntegrations'
 
@@ -318,27 +318,21 @@ export default function LandingPage() {
       </section>
 
       {/* Chart Section */}
-      <section className="py-16 md:py-20 px-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-8 md:mb-12">
-            <h2 className="text-2xl md:text-4xl font-bold mb-4 text-white">
-              Advanced Market Analysis
-            </h2>
-            <p className="text-indigo-200 max-w-2xl mx-auto">
-              Track market movements with our AI-enhanced trading charts
-            </p>
-          </div>
-          <div className="bg-gray-800/50 p-4 rounded-lg min-h-[400px] md:min-h-[600px]">
-            <React.Suspense fallback={
-              <div className="flex items-center justify-center h-[400px] md:h-[500px] text-white">
-                Loading chart...
-              </div>
-            }>
-              <EnhancedTradingChart />
-            </React.Suspense>
-          </div>
-        </div>
-      </section>
+<section className="py-16 md:py-20 px-4">
+  <div className="max-w-6xl mx-auto">
+    <div className="text-center mb-8 md:mb-12">
+      <h2 className="text-2xl md:text-4xl font-bold mb-4 text-white">
+        Advanced Market Analysis
+      </h2>
+      <p className="text-indigo-200 max-w-2xl mx-auto">
+        Track market movements with our AI-enhanced trading charts
+      </p>
+    </div>
+    <div className="bg-gray-800/50 p-4 rounded-lg">
+      <EnhancedTradingChart />
+    </div>
+  </div>
+</section>
 
       {/* How It Works Section */}
       <section className="py-16 md:py-20 px-4 bg-indigo-900/30">
