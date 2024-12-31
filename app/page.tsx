@@ -40,10 +40,9 @@ const HeroSection = ({ onGetStarted }: { onGetStarted: () => void }) => (
        <span className="inline-block px-4 py-1 rounded-full bg-indigo-500/10 text-indigo-400 font-medium mb-6">
          <Cpu className="inline-block w-4 h-4 mr-2" /> AI-Powered Trading Assistant
        </span>
-       <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 text-white">
-         CRYPTO PRO-TRADER
+       <h1 >
          <span className="block mt-4 bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
-           Smart Trading Made Easy
+           Crypto Trading Made Easy For You With AI
          </span>
        </h1>
        <p className="text-lg md:text-xl text-indigo-100 mb-8 max-w-2xl mx-auto">
