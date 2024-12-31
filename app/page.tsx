@@ -66,15 +66,7 @@ const HeroSection = ({ onGetStarted }: { onGetStarted: () => void }) => (
             </Button>
           </div>
         </div>
-        <div className="hidden md:block">
-          <Image 
-            src="/hero-illustration.png" 
-            alt="Trading Platform" 
-            width={600} 
-            height={400}
-            className="w-full h-auto"
-          />
-        </div>
+       
       </div>
     </div>
   </section>
