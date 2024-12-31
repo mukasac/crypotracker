@@ -9,7 +9,23 @@ const nextConfig = {
     '@radix-ui/react-label',
     '@radix-ui/react-slider',
     '@radix-ui/react-slot'
-  ]
+  ],
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'coin-images.coingecko.com',
+        port: '',
+        pathname: '/coins/images/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'assets.coingecko.com',
+        port: '',
+        pathname: '/coins/images/**',
+      },
+    ],
+  },
 }
 
 module.exports = nextConfig
