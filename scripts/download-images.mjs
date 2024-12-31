@@ -6,11 +6,10 @@ import { createWriteStream } from 'fs';
 const publicDir = path.join(process.cwd(), 'public');
 
 const images = [
-  { name: 'hero-illustration.png', url: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80' },
-  { name: 'btc-icon.png', url: 'https://cryptologos.cc/logos/bitcoin-btc-logo.png?v=025' },
-  { name: 'eth-icon.png', url: 'https://cryptologos.cc/logos/ethereum-eth-logo.png?v=025' },
-  { name: 'sol-icon.png', url: 'https://cryptologos.cc/logos/solana-sol-logo.png?v=025' },
-  { name: 'ada-icon.png', url: 'https://cryptologos.cc/logos/cardano-ada-logo.png?v=025' },
+  { name: 'btc-icon.png' },
+  { name: 'eth-icon.png' },
+  { name: 'sol-icon.png' },
+  { name: 'ada-icon.png' },
   { name: 'feature-signals.png'},
   { name: 'feature-risk.png'},
   { name: 'feature-timing.png'},
@@ -18,7 +17,6 @@ const images = [
   { name: 'step1-icon.png' },
   { name: 'step2-icon.png' },
   { name: 'step3-icon.png' },
-  { name: 'early-access.png', url: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80' },
   { name: 'coinbase-logo.png' },
   { name: 'binance-logo.png' },
   { name: 'robinhood-logo.png' },
