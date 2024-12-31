@@ -34,39 +34,29 @@ const Navbar = ({ onJoinWaitlist }: { onJoinWaitlist: () => void }) => (
 const HeroSection = ({ onGetStarted }: { onGetStarted: () => void }) => (
   <section className="pt-24 md:pt-32 pb-16 md:pb-20 px-4">
     <div className="max-w-6xl mx-auto">
-      <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
-        <div className="text-center md:text-left">
-          <span className="inline-block px-4 py-1 rounded-full bg-indigo-500/10 text-indigo-400 font-medium mb-6">
-            <Cpu className="inline-block w-4 h-4 mr-2" /> AI-Powered Trading Assistant
+      <div className="text-center max-w-4xl mx-auto">
+        <span className="inline-block px-4 py-1 rounded-full bg-indigo-500/10 text-indigo-400 font-medium mb-6">
+          <Cpu className="inline-block w-4 h-4 mr-2" /> AI-Powered Trading Assistant
+        </span>
+        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 text-white">
+          CRYPTO PRO-TRADER
+          <span className="block mt-4 bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
+            Smart Trading Made Easy
           </span>
-          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-6 text-white">
-            CRYPTO PRO-TRADER
-            <span className="block mt-2 bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
-              Smart Trading Made Easy
-            </span>
-          </h1>
-          <p className="text-lg md:text-xl text-indigo-100 mb-8">
-            Our AI analyzes millions of data points to give you clear buy or wait signals.
-            Start with just $200 on your favorite trading app.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-            <Button
-              size="lg"
-              className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700"
-              onClick={onGetStarted}
-            >
-              Get Early Access
-            </Button>
-            <Button 
-              size="lg" 
-              variant="outline" 
-              className="border-indigo-500 text-indigo-400 hover:bg-indigo-500 hover:text-white"
-            >
-              Learn More
-            </Button>
-          </div>
+        </h1>
+        <p className="text-lg md:text-xl text-indigo-100 mb-8 max-w-2xl mx-auto">
+          Our AI analyzes millions of data points to give you clear buy or wait signals.
+          Start with just $200 on your favorite trading app.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <Button
+            size="lg"
+            className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 px-8 py-6 text-lg"
+            onClick={onGetStarted}
+          >
+            Get Early Access
+          </Button>
         </div>
-       
       </div>
     </div>
   </section>
