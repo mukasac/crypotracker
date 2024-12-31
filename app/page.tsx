@@ -46,7 +46,7 @@ const HeroSection = ({ onGetStarted }: { onGetStarted: () => void }) => (
         </h1>
         <p className="text-lg md:text-xl text-indigo-100 mb-8 max-w-2xl mx-auto">
           Our AI analyzes millions of data points to give you clear buy or wait signals.
-          Start with just $200 on your favorite trading app.
+          Start with just any amount on your favorite trading app.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button
