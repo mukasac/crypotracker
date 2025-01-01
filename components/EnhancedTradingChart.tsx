@@ -55,6 +55,7 @@ const Chart = () => {
       return date.toLocaleDateString([], { month: 'short', day: 'numeric' });
     }
   };
+
   // Technical Indicators Calculations
   const calculateSMA = (data: number[], period: number): (number | undefined)[] => {
     const sma: (number | undefined)[] = [];
@@ -162,6 +163,7 @@ const Chart = () => {
       fetchData();
     }
   }, [timeframe, selectedCoin, mounted]);
+
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -217,7 +219,7 @@ const Chart = () => {
 
   if (!mounted) {
     return (
-      <div className="w-full h-[500px] flex items-center justify-center">
+      <div className="w-full h-48 md:h-96 flex items-center justify-center">
         <p className="text-slate-400">Loading chart...</p>
       </div>
     );
@@ -228,12 +230,16 @@ const Chart = () => {
   return (
     <div className="w-full">
       <Card>
-        <CardHeader>
-          <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
-            <CardTitle>Smart Market Analysis</CardTitle>
-            <div className="flex flex-wrap gap-4">
+        <CardHeader className="space-y-4">
+          <div className="flex flex-col space-y-4">
+            <div className="flex justify-between items-center">
+              <CardTitle className="text-lg md:text-xl">Smart Market Analysis</CardTitle>
+            </div>
+            
+            {/* Mobile-optimized controls */}
+            <div className="flex flex-col space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
               <Select value={selectedCoin} onValueChange={setSelectedCoin}>
-                <SelectTrigger className="w-[150px]">
+                <SelectTrigger className="w-full sm:w-[150px]">
                   <SelectValue placeholder="Select coin" />
                 </SelectTrigger>
                 <SelectContent>
@@ -246,7 +252,7 @@ const Chart = () => {
               </Select>
               
               <Select value={timeframe} onValueChange={setTimeframe}>
-                <SelectTrigger className="w-[100px]">
+                <SelectTrigger className="w-full sm:w-[100px]">
                   <SelectValue placeholder={timeframe} />
                 </SelectTrigger>
                 <SelectContent>
@@ -256,7 +262,7 @@ const Chart = () => {
                 </SelectContent>
               </Select>
 
-              <div className="flex gap-2">
+              <div className="flex flex-wrap gap-2">
                 {(Object.keys(indicators) as Indicator[]).map(indicator => (
                   <Button
                     key={indicator}
@@ -265,7 +271,8 @@ const Chart = () => {
                       ...prev,
                       [indicator]: !prev[indicator]
                     }))}
-                    className="text-xs"
+                    className="text-xs flex-1 sm:flex-none"
+                    size="sm"
                   >
                     {indicator.toUpperCase()}
                   </Button>
@@ -277,84 +284,22 @@ const Chart = () => {
 
         <CardContent>
           {loading ? (
-            <div className="w-full h-[400px] flex items-center justify-center">
+            <div className="w-full h-48 md:h-96 flex items-center justify-center">
               <p className="text-slate-400">Loading data...</p>
             </div>
-          ) : (<div className="space-y-6">
-            <div style={{ width: '100%', height: '400px' }} className="mt-4">
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart
-                  data={chartData}
-                  margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-                  <XAxis 
-                    dataKey="timestamp"
-                    stroke="#94a3b8"
-                    tickFormatter={formatDate}
-                    type="number"
-                    domain={['dataMin', 'dataMax']}
-                    scale="time"
-                  />
-                  <YAxis yAxisId="left" stroke="#94a3b8" />
-                  <YAxis yAxisId="right" orientation="right" stroke="#94a3b8" />
-                  <Tooltip 
-                    labelFormatter={(label) => new Date(label).toLocaleString()}
-                    formatter={(value: number) => [value.toFixed(2), '']}
-                  />
-                  <Legend />
-                  
-                  <Line 
-                    type="monotone" 
-                    dataKey="price" 
-                    stroke="#3b82f6" 
-                    strokeWidth={2}
-                    dot={false}
-                    yAxisId="left"
-                    name="Price"
-                  />
-                  
-                  <Line 
-                    type="monotone" 
-                    dataKey="sma20" 
-                    stroke="#22c55e" 
-                    strokeWidth={1}
-                    dot={false}
-                    strokeDasharray="3 3"
-                    yAxisId="left"
-                    name="SMA 20"
-                  />
-                  
-                  <Line 
-                    type="monotone" 
-                    dataKey="ema50" 
-                    stroke="#eab308" 
-                    strokeWidth={1}
-                    dot={false}
-                    strokeDasharray="3 3"
-                    yAxisId="left"
-                    name="EMA 50"
-                  />
-                  
-                  {indicators.volume && (
-                    <Bar 
-                      dataKey="volume" 
-                      fill="#3b82f6" 
-                      opacity={0.3} 
-                      yAxisId="right"
-                      name="Volume"
-                    />
-                  )}
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
-
-            {indicators.rsi && (
-              <div style={{ width: '100%', height: '100px' }}>
+          ) : (
+            <div className="space-y-4">
+              {/* Main Chart - Responsive height */}
+              <div className="w-full h-48 md:h-96">
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart
                     data={chartData}
-                    margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                    margin={{ 
+                      top: 10,
+                      right: 10,
+                      left: 0,
+                      bottom: 0
+                    }}
                   >
                     <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
                     <XAxis 
@@ -364,59 +309,158 @@ const Chart = () => {
                       type="number"
                       domain={['dataMin', 'dataMax']}
                       scale="time"
+                      tick={{ fontSize: 12 }}
+                      minTickGap={30}
                     />
-                    <YAxis stroke="#94a3b8" domain={[0, 100]} />
+                    <YAxis 
+                      yAxisId="left" 
+                      stroke="#94a3b8"
+                      tick={{ fontSize: 12 }}
+                      width={60}
+                    />
+                    <YAxis 
+                      yAxisId="right" 
+                      orientation="right" 
+                      stroke="#94a3b8"
+                      tick={{ fontSize: 12 }}
+                      width={60}
+                    />
                     <Tooltip 
                       labelFormatter={(label) => new Date(label).toLocaleString()}
-                      formatter={(value: number) => [value.toFixed(2), 'RSI']}
+                      formatter={(value: number) => [value.toFixed(2), '']}
+                      contentStyle={{ fontSize: '12px' }}
                     />
+                    <Legend wrapperStyle={{ fontSize: '12px' }} />
+                    
                     <Line 
                       type="monotone" 
-                      dataKey="rsi" 
-                      stroke="#db2777" 
+                      dataKey="price" 
+                      stroke="#3b82f6" 
+                      strokeWidth={2}
                       dot={false}
-                      name="RSI"
+                      yAxisId="left"
+                      name="Price"
                     />
+                    
+                    <Line 
+                      type="monotone" 
+                      dataKey="sma20" 
+                      stroke="#22c55e" 
+                      strokeWidth={1}
+                      dot={false}
+                      strokeDasharray="3 3"
+                      yAxisId="left"
+                      name="SMA 20"
+                    />
+                    
+                    <Line 
+                      type="monotone" 
+                      dataKey="ema50" 
+                      stroke="#eab308" 
+                      strokeWidth={1}
+                      dot={false}
+                      strokeDasharray="3 3"
+                      yAxisId="left"
+                      name="EMA 50"
+                    />
+                    
+                    {indicators.volume && (
+                      <Bar 
+                        dataKey="volume" 
+                        fill="#3b82f6" 
+                        opacity={0.3} 
+                        yAxisId="right"
+                        name="Volume"
+                      />
+                    )}
                   </LineChart>
                 </ResponsiveContainer>
               </div>
-            )}
 
-            <div className="bg-slate-800 rounded-lg p-4">
-              <div className="flex flex-wrap gap-4 mb-4">
-                {(Object.keys(marketAnalysis) as AnalysisType[]).map(type => (
-                  <Button
-                    key={type}
-                    variant={selectedAnalysis === type ? "default" : "outline"}
-                    onClick={() => setSelectedAnalysis(type)}
-                    className="text-sm"
-                  >
-                    {type === 'trend' ? <TrendingUp className="w-4 h-4 mr-2" /> :
-                     type === 'momentum' ? <BarChart2 className="w-4 h-4 mr-2" /> :
-                     <AlertTriangle className="w-4 h-4 mr-2" />}
-                    {marketAnalysis[type].title}
-                  </Button>
-                ))}
-              </div>
-              <div className="space-y-2">
-                <h3 className="text-lg font-semibold text-white">
-                  {marketAnalysis[selectedAnalysis].title}
-                </h3>
-                <p className="text-slate-300">
-                  {marketAnalysis[selectedAnalysis].content}
-                </p>
-                <p className="text-indigo-400 font-medium">
-                  Our take: {marketAnalysis[selectedAnalysis].recommendation}
-                </p>
+              {/* RSI Chart - Responsive height */}
+              {indicators.rsi && (
+                <div className="w-full h-32 md:h-40">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart
+                      data={chartData}
+                      margin={{ 
+                        top: 5,
+                        right: 10,
+                        left: 0,
+                        bottom: 0
+                      }}
+                    >
+                      <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
+                      <XAxis 
+                        dataKey="timestamp"
+                        stroke="#94a3b8"
+                        tickFormatter={formatDate}
+                        type="number"
+                        domain={['dataMin', 'dataMax']}
+                        scale="time"
+                        tick={{ fontSize: 12 }}
+                        minTickGap={30}
+                      />
+                      <YAxis 
+                        stroke="#94a3b8" 
+                        domain={[0, 100]}
+                        tick={{ fontSize: 12 }}
+                        width={40}
+                      />
+                      <Tooltip 
+                        labelFormatter={(label) => new Date(label).toLocaleString()}
+                        formatter={(value: number) => [value.toFixed(2), 'RSI']}
+                        contentStyle={{ fontSize: '12px' }}
+                      />
+                      <Line 
+                        type="monotone" 
+                        dataKey="rsi" 
+                        stroke="#db2777" 
+                        dot={false}
+                        name="RSI"
+                      />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </div>
+              )}
+
+              {/* Analysis Section - Mobile responsive */}
+              <div className="bg-slate-800 rounded-lg p-3 md:p-4">
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {(Object.keys(marketAnalysis) as AnalysisType[]).map(type => (
+                    <Button
+                      key={type}
+                      variant={selectedAnalysis === type ? "default" : "outline"}
+                      onClick={() => setSelectedAnalysis(type)}
+                      className="text-xs sm:text-sm flex-1 sm:flex-none"
+                      size="sm"
+                    >
+                      {type === 'trend' ? <TrendingUp className="w-4 h-4 mr-1 sm:mr-2" /> :
+                       type === 'momentum' ? <BarChart2 className="w-4 h-4 mr-1 sm:mr-2" /> :
+                       <AlertTriangle className="w-4 h-4 mr-1 sm:mr-2" />}
+                      <span className="hidden sm:inline">{marketAnalysis[type].title}</span>
+                      <span className="sm:hidden">{type}</span>
+                    </Button>
+                  ))}
+                </div>
+                <div className="space-y-2">
+                  <h3 className="text-base md:text-lg font-semibold text-white">
+                    {marketAnalysis[selectedAnalysis].title}
+                  </h3>
+                  <p className="text-sm md:text-base text-slate-300">
+                    {marketAnalysis[selectedAnalysis].content}
+                  </p>
+                  <p className="text-sm md:text-base text-indigo-400 font-medium">
+                    Our take: {marketAnalysis[selectedAnalysis].recommendation}
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-        )}
-      </CardContent>
-    </Card>
-  </div>
-);
+          )}
+        </CardContent>
+      </Card>
+    </div>
+  );
 };
 
-// Use dynamic import to avoid SSR issues with chart components
 export default dynamic(() => Promise.resolve(Chart), { ssr: false });
