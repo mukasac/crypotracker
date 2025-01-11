@@ -22,6 +22,7 @@ export default function RootLayout({
         <body className={`${inter.className} min-h-screen bg-background text-foreground antialiased`}>
           <main className="relative flex min-h-screen flex-col">
             {children}
+            <Analytics />
           </main>
         </body>
       </html>
